@@ -24,12 +24,13 @@ RUN useradd --create-home --home-dir /home/iibuser -G mqbrkrs,sudo iibuser
 
 ##MQ##
 RUN tar -xzvf mqadv_dev904_ubuntu_x86-64.tar.gz --directory /opt/mqm
-RUN export mq_lic_loc=$(find /opt/mqm -name "mqlicense.sh")
-#RUN "${mq_lic_loc} -text_only -accept"
 RUN /opt/mqm/DebianMQServer/mqlicense.sh -text_only -accept
-RUN apt install /opt/mqm/DebianMQServer/ibmmq-runtime_9.0.4.0_amd64.deb
-RUN apt install /opt/mqm/DebianMQServer/ibmmq-server_9.0.4.0_amd64.deb
-RUN groupadd mqm
+#RUN apt install /opt/mqm/DebianMQServer/ibmmq-runtime_9.0.4.0_amd64.deb
+#RUN apt install /opt/mqm/DebianMQServer/ibmmq-server_9.0.4.0_amd64.deb
+RUN dpkg -i /opt/mqm/DebianMQServer/ibmmq-runtime_9.0.4.0_amd64.deb
+RUN dpkg -i /opt/mqm/DebianMQServer/ibmmq-server_9.0.4.0_amd64.deb
+
+#RUN groupadd mqm
 RUN useradd --create-home --home-dir /home/mqmuser -G mqm,sudo mqmuser
 
 ##Cleanup##
